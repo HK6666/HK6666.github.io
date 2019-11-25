@@ -1,0 +1,17 @@
+---
+layout:     post                    # 使用的布局（不需要改）
+title:      期末Flag            # 标题 
+subtitle:   Hello World, Hello Blog #副标题
+date:       2019-11-25            # 时间
+author:     hk                      # 作者
+header-img: img/post-bg-2015.jpg    #这篇文章标题背景图片
+catalog: true                       # 是否归档
+tags:                               #标签
+    - 生活
+---
+
+## Hey
+>压力确实大
+
+最近要在几日之内完成uml的模块设计，微信小程序前后端的开发，我感觉是现实逼迫自己成为一个full stack，其实如果有机会，我以后还是希望能够做一个专职的后端开发，
+或者偶尔玩一玩前端的东西就好了，现在快十一点半了，我先睡觉了哈哈哈哈
