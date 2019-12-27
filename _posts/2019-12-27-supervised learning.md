@@ -32,4 +32,4 @@ tags:                               #标签
     如果我们总想找到最简单的模型，构建与一个对于现有信息量过于复杂的模型，即在拟合模型的时候过分关注训练集的细节，得到了一个与训练集上表现很好但是不能泛化到新数据上的模型，那么就是overfitting过拟合。反之，如果模型过于简单，无法抓住数据的全部内容以及数据中的变化，甚至在训练集上表现就很差，那么就是underfitting欠拟合。
     所以，在二者之间存在一个最佳位置，找到这个位置就是我们最想要的模型
 
-![冲冲冲](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577420892401&di=712e018341a9ba985bf75cba553920df&imgtype=0&src=http%3A%2F%2Fwww.koudai8.com%2Fnewbbs%2Fdata%2Fattachment%2Falbum%2F201502%2F26%2F022510oh9gaghjg8y30yjg.png)
+ 冲冲冲![冲冲冲](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577420892401&di=712e018341a9ba985bf75cba553920df&imgtype=0&src=http%3A%2F%2Fwww.koudai8.com%2Fnewbbs%2Fdata%2Fattachment%2Falbum%2F201502%2F26%2F022510oh9gaghjg8y30yjg.png)
