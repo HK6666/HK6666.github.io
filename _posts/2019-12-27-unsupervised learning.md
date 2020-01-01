@@ -10,7 +10,7 @@ tags:                               #标签
     - 机器学习入门
 ---
 
-无监督学习的应用 https://blog.csdn.net/weixin_43612023/article/details/89208670
+无监督学习的应用 https://blog.csdn.net/weixin_43612023/article/details/8920867
 
 hk对于无监督学习的理解：
 
@@ -27,4 +27,5 @@ hk对于无监督学习的理解：
 预测明天的气温是多少度，这是一个回归任务；
 预测明天是阴、晴还是雨，就是一个分类任务。
 
-知乎文章 分类和回归的具体区别：https://www.zhihu.com/question/21329754
+知乎文章 分类和回归的具体区别：
+\`https://www.zhihu.com/question/21329754
