@@ -7,6 +7,7 @@ author:     hk                      # 作者
 header-img: img/post-bg-miui-ux.jpg    #这篇文章标题背景图片
 catalog: true                       # 是否归档
 tags:                               #标签
+Faster R-CNN : To unify RPNs with Fast R-CNN
     - AI论文归纳
 ---
 <!-- TOC -->Faster-RCNN阅读思考笔记<!-- /TOC -->
@@ -14,9 +15,8 @@ tags:                               #标签
 
 Tips: This kind of network work by using CPU
 
-Faster R-CNN : To unify RPNs with Fast R-CNN
 
-本文思维导图链接：
+本文思维导图链接（公式未补充完整）：
 
 https://www.processon.com/embed/5de075ffe4b00e6d900d8494
 
