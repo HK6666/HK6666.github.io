@@ -1,0 +1,69 @@
+I"H<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<p><strong>Table of Contents</strong>  <em>generated with <a href="https://github.com/thlorenz/doctoc">DocToc</a></em></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- [](#) - [Mask RCNN 论文解读](#mask-rcnn-%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB) - [Introduction](#introduction)
+</code></pre></div></div>
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+<h1 id="mask-rcnn-论文解读">Mask RCNN 论文解读</h1>
+
+<p>Tips:</p>
+
+<ul>
+  <li>Mask RCNN以Faster RCNN原型，增加了一个分支用于分割任务</li>
+  <li>速度没有 Faster RCNN快</li>
+  <li>可用于姿态识别</li>
+  <li>代码demo和运行结果（待完成）</li>
+</ul>
+
+<h1 id="introduction">Introduction</h1>
+<ul>
+  <li>Mask R-CNN 是一个两阶段的框架，第一个阶段扫描图像并生成提议（proposals，即有可能包含一个目标的区域），第二阶段分类提议并生成边界框和掩码。Mask R-CNN 扩展自 Faster R-CNN，由同一作者在去年提出。Faster R-CNN 是一个流行的目标检测框架，Mask R-CNN 将其扩展为实例分割框架。</li>
+  <li>实例分割不仅要正确的找到图像中的objects，还要对其精确的分割。所以Instance Segmentation可以看做object dection和semantic segmentation的结合。</li>
+  <li>Mask RCNN是Faster RCNN的扩展，对于Faster RCNN的每个Proposal Box都要使用FCN进行语义分割，分割任务与定位、分类任务是同时进行的。</li>
+  <li>引入了RoI Align代替Faster RCNN中的RoI Pooling。因为RoI Pooling并不是按照像素一一对齐的（pixel-to-pixel alignment），也许这对bbox的影响不是很大，但对于mask的精度却有很大影响。使用RoI Align后mask的精度从10%显著提高到50%，第3节将会仔细说明。</li>
+  <li>引入语义分割分支，实现了mask和class预测的关系的解耦，mask分支只做语义分割，类型预测的任务交给另一个分支。这与原本的FCN网络是不同的，原始的FCN在预测mask时还用同时预测mask所属的种类</li>
+</ul>
+
+<h1 id="related-work">Related work</h1>
+<ul>
+  <li>RCNN的介绍可以看前一篇文章</li>
+  <li>FCIS exhibits system- atic errors on overlapping instances and creates spurious edges (Figure 5),（意思是可能对重叠的物体效果不太好）</li>
+  <li>本文使用的训练平台有8个GPU</li>
+</ul>
+
+<h1 id="mask-rcnn">Mask RCNN</h1>
+<ul>
+  <li>
+    <p>和 Fast RCNN一样 两步走</p>
+
+    <ul>
+      <li>Find RPN</li>
+      <li>category and located to find binary mask
+  (什么是 binary mask https://blog.csdn.net/uianster/article/details/78716728)
+  -损失函数：<img src="https://private.codecogs.com/gif.latex?L%20%3D%20L%7B_%7Bcls%7D%7D%20&plus;%20L%7B_%7Bbox%7D%7D%20&plus;%20L%7B_%7Bmask%7D%7D" alt="Image text" /></li>
+    </ul>
+  </li>
+  <li>
+    <p>RoIAlign</p>
+    <ul>
+      <li>关键点
+        <ul>
+          <li>解释：目标检测特殊层：ROI Align层详解 ：https://blog.csdn.net/wfei101/article/details/79618567</li>
+          <li>很好地解决了ROI Pooling操作中两次量化造成的区域不匹配(mis-alignment)的问题。实验显示，在检测测任务中将 ROI Pooling 替换为 ROI Align 可以提升检测模型的准确性</li>
+          <li>实现概括
+            <ul>
+              <li>遍历每一个候选区域，保持浮点数边界不做量化。</li>
+              <li>将候选区域分割成k x k个单元，每个单元的边界也不做量化</li>
+              <li>在每个单元中计算固定四个坐标位置，用双线性内插的方法计算出这四个位置的值，然后进行最大池化操作</li>
+            </ul>
+          </li>
+          <li>类比于ROIPooling，ROIAlign的反向传播需要作出稍许修改：首先，在ROIAlign中，xi<em>（r,j）是一个浮点数的坐标位置(前向传播时计算出来的采样点)，在池化前的特征图中，每一个与 xi</em>(r,j) 横纵坐标均小于1的点都应该接受与此对应的点yrj回传的梯度，故ROI Align 的反向传播公式如下: <img src="https://leanote.com/api/file/getImage?fileId=59fbe350ab644137db000a4e" alt="Image text" /></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET

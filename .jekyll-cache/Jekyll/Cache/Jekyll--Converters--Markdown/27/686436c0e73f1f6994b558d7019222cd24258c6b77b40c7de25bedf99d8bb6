@@ -1,0 +1,48 @@
+I"a<!-- TOC -->
+<p>Faster-RCNN阅读思考笔记<!-- /TOC -->
+新年快乐</p>
+
+<p>Tips: This kind of network work by using CPU</p>
+
+<p>本文思维导图链接（公式未补充完整）：</p>
+
+<p>https://www.processon.com/embed/5de075ffe4b00e6d900d8494</p>
+
+<p>关于RPN和Fast R-CNN 的详细总结</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.RPN：https://blog.csdn.net/qq_36269513/article/details/80421990
+2.https://www.jianshu.com/p/fbbb21e1e390
+</code></pre></div></div>
+
+<p>如图是一些相关应用</p>
+
+<p><img src="https://github.com/HK6666/HK6666.github.io/blob/master/_posts/img/Related-work.png?raw=true" alt="Image text" /></p>
+
+<p>总体的结构如下：</p>
+
+<p><img src="https://img-blog.csdnimg.cn/20191105195802765.png" alt="Image text" /></p>
+
+<p>更加详细的如下：</p>
+
+<p><img src="https://img-blog.csdnimg.cn/20191105195816143.png" alt="Image text" /></p>
+
+<p>重点：</p>
+
+<p>1.通过CNN得到的feature map怎么可以通过RPN得到与原图对应的候选区域的</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>使用Anchors
+anchors可以理解为一些预设大小的框，anchors的种类用k表示，在原文中k=9，由3种面积(1282128^2128）和3种长宽比(1:1,1:2,2:1)组成。
+同时找到了一篇不错的解释博客和代码https://blog.csdn.net/sinat_33486980/article/details/81099093
+</code></pre></div></div>
+
+<p>2.RPN训练：
+    这个公式太难了，没有全部看懂，只能边做边理解了
+<img src="https://img-blog.csdnimg.cn/20191105195846644.png" alt="Imag text" /></p>
+
+<p>3.ROI-Polling:Roi pooling:
+其实就是将RPN得到的大约300个候选框映射到卷积特征图上并抠出来的过程，并且最重要的是经过ROI池化，不同大小的方框可以得到固定大小的特征图。具体的操作如下:1)根据输入的image,将Roi映射到feature map对应的位置;2)将映射后的区域划分为7×7大小的sections(sections数量和输出的维度相同7×7); 3)对每个section（可以不一样大）进行max pooling操作。这样我们就可以从不同大小的方框得到固定大小的对应的maps。而且输出的feature maps的大小不取决于ROI和卷积feature maps大小。ROI pooling最大的好处就在于极大地提高了训练和测试速度（处理速度）。
+————————————————</p>
+
+<p>END:总结 Faster-RCNN 2015年提出的端到端的深度学习检测算法，关键在于通过添加RPN网络，基于Anchor机制来生成候选框，（代替selective search），最终将特征提取、候选框选取、边框回归和分类都整合到一个网络中，从而有效的提高检测精度和检测效率。具体的流程就是将输入图像缩放以后进入到卷积层提取特征得到feature map，然后特征图送入RPN网络生成一系列object可能的候选框，接下来将原始的feature maps和RPN输出的所有候选框（ROI矩阵(N*5)）输入到ROI pooling层，提取收集proposal,并计算出固定大小7×7的proposal feature maps,送入全连接层进行目标分类与坐标回归。</p>
+
+:ET
